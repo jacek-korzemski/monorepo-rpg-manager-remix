@@ -1,0 +1,147 @@
+body {
+  margin: 0;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  min-height: 100vh;
+  line-height: 1.71429;
+  color: white;
+  text-align: left;
+  background: rgb(2,21,62);
+  background: linear-gradient(153deg, rgba(2,21,62,1) 0%, rgba(16,90,134,1) 100%);
+  background-size: cover;
+  padding-top: 88px;
+  padding-bottom:64px;
+}
+
+.btn {
+  cursor: pointer;
+  margin: 0;
+  padding: 0 15px;
+  top: 0;
+  right: 0;
+  min-width: 120px;
+  height: 48px;
+  line-height: 48px;
+  background: rgb(39,96,134);
+  border-radius: 4px;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 400;
+  color: #fff;
+  border: none;
+}
+
+.shadow-box {
+  text-align: center;
+  background: hsla(0, 0%, 100%, .06);
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+
+a {
+  color: #bbf;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+a:hover {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+input[type="text"],
+input[type="password"],
+input[type="number"], 
+textarea {
+  width: 100%;
+  max-width: 300px;
+  height: 48px;
+  line-height: 27px;
+  padding: 10px 11px 11px 11px;
+  color: #333 !important;
+  border-radius: 4px;
+  font-size: 18px;
+  outline: none;
+  inset: none;
+  -webkit-appearance: none;
+  border: 1px solid #ccc;
+  box-shadow: 1px 2px 3px #000;
+  margin-bottom: 15px;
+}
+textarea {
+  min-height: 128px;
+  width: 100%;
+  max-width: none;
+}
+select {
+  width: 100%;
+  max-width: 300px;
+  height: 48px;
+  line-height: 27px;
+  padding: 10px 58px 11px 11px;
+  color: #333 !important;
+  border-radius: 4px;
+  font-size: 18px;
+  outline: none;
+  border: 1px solid #ccc;
+  box-shadow: 1px 2px 3px #000;
+  margin-bottom: 15px;
+}
+.btn:hover {
+  background: rgb(9, 44, 85);
+  box-shadow: 1px 2px 3px #222;
+}
+.btn.loading {
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(19,66,114,1) 0%, rgba(39,96,134,1) 50%, rgba(9,44,85,1) 100%);
+  background-size: 200% 100%;
+  animation: loadingAnimation 1.5s infinite linear;
+  animation-direction: alternate;
+  color: darkgray;
+  text-shadow: 1px 1px 1px black;
+  box-shadow: 1px 1px 5px black;
+  opacity: 0.75;
+}
+.error-box {
+  padding: 15px;
+  border: 1px solid red;
+  color: red;
+  background: white;
+  border-radius: 4px;
+  margin: 15px auto;
+}
+.menu li {
+  margin-left: 0;
+}
+.menu li a { 
+  display: block;
+  height: 100%;
+  line-height: 88px;
+  color: #fff;
+  padding: 0 24px;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  accent-color: rgb(39,96,134);
+  display: block;
+  border: 1px solid black;
+}

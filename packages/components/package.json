@@ -1,16 +1,19 @@
 {
   "name": "@rpg-manager/components",
+  "private": true,
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest"
   },
-  "dependencies": {
-    "react": "^17.0.0"
-  },
   "devDependencies": {
     "jest": "^27.0.0",
     "typescript": "^4.0.0"
+  },
+  "dependencies": {
+    "@remix-run/react": "^2.9.2",
+    "react": "^18.3.1",
+    "styled-components": "^6.1.11"
   }
 }
