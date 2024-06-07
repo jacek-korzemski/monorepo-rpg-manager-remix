@@ -1,16 +1,16 @@
-import { Link } from '@remix-run/react';
-
 import './reset.css';
 import './fonts.css';
 import './main.css';
 import './style.css';
+import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
-const Layout = ({ children = <></> }) => {
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <div class="topbar">
-        <div class="filter"></div>
-        <ul class="container menu">
+      <div className="topbar">
+        <div className="filter"></div>
+        <ul className="container menu">
           <li>
             <Link to="/">Home</Link>
           </li>
@@ -19,7 +19,7 @@ const Layout = ({ children = <></> }) => {
           </li>
         </ul>
       </div>
-      <div class="body">{children}</div>
+      <div className="body">{children}</div>
     </>
   );
 };
