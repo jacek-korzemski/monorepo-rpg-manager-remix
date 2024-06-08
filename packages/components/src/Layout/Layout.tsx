@@ -4,8 +4,18 @@ import './main.css';
 import './style.css';
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import LoginForm from '../LoginForm/LoginForm';
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({
+  children,
+  isLogged = false,
+}: {
+  children: ReactNode;
+  isLogged: boolean | undefined;
+}) => {
+  if (!isLogged) {
+    return <LoginForm />;
+  }
   return (
     <>
       <div className="topbar">

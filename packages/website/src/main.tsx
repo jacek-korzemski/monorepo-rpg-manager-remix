@@ -7,13 +7,11 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import Index from './pages/Index';
-import Login from './pages/Login';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<Index />} />
-      <Route path="/login" element={<Login />} />
     </>
   )
 );
