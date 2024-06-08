@@ -1,3 +1,7 @@
+/*
+
+TODO - fix so it could use useUser hook.
+
 import React, { useState, useEffect, FormEvent } from 'react';
 import Button from '../Button/Button';
 import styled from 'styled-components';
@@ -9,34 +13,6 @@ const LoginComponent: React.FC = () => {
   const [message, setMessage] = useState<string | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
   const [mount, setMount] = useState<boolean>(false);
-
-  const postLogin = async (e: FormEvent<HTMLFormElement>) => {
-    setIsLoading(true);
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('email', email);
-    formData.append('password', password);
-
-    try {
-      const response = await fetch(`${import.meta.env.VITE_PUBLIC_API}/login`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new TypeError('Błąd logowania');
-      }
-
-      const data = await response.json();
-      sessionStorage.setItem('token', data.token);
-      window.location.href = '/loginSuccess';
-    } catch (e) {
-      console.error(e);
-      setError('Wystąpił błąd podczas logowania 😟');
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const logout = () => {
     sessionStorage.removeItem('token');
@@ -136,3 +112,4 @@ const Input = styled.input`
   display: block;
   margin: 10px auto;
 `;
+*/
