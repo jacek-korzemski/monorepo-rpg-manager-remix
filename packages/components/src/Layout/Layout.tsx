@@ -33,18 +33,19 @@ const Menu = styled.ul`
 `;
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const { isLogged, setToken, setIsLogged, logout } = useUser();
+  const { isLogged, verifyToken, logout } = useUser();
   const [isMount, setIsMount] = useState(false);
   const [cookies] = useCookies(['70k3n']);
 
   useEffect(() => {
-    if (cookies['70k3n']) {
-      setToken(cookies['70k3n']);
-      setIsLogged(true);
+    const checkToken = async () => {
+      if (cookies['70k3n']) {
+        await verifyToken(cookies['70k3n']);
+      }
       setIsMount(true);
-    } else {
-      setIsMount(true);
-    }
+    };
+
+    checkToken();
   }, []);
 
   if (!isMount) {

@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import shouldForwardProp from '@styled-system/should-forward-prop';
 
-export default styled.div<{ fullWidth?: boolean }>`
+const Box = styled.div.withConfig({
+  shouldForwardProp: (prop) => shouldForwardProp(prop) && prop !== 'fullWidth',
+})<{ fullWidth?: boolean }>`
   border-radius: 20px;
   border: 1px solid hsla(0, 0%, 100%, 0.3);
   padding: 35px 25px 35px 35px;
@@ -13,3 +16,5 @@ export default styled.div<{ fullWidth?: boolean }>`
   backdrop-filter: blur(7.49816px);
   width: ${({ fullWidth }) => (fullWidth ? '100%' : 'auto')};
 `;
+
+export default Box;

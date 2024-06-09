@@ -21,6 +21,7 @@ const UserContext = createContext<{
   }) => Promise<void>;
   logout: () => void;
   register: () => void;
+  verifyToken: (token: string) => void;
 }>({
   isLoading: false,
   isLogged: false,
@@ -30,6 +31,7 @@ const UserContext = createContext<{
   login: () => Promise.resolve(),
   logout: () => {},
   register: () => {},
+  verifyToken: () => {},
 });
 
 interface CustomImportMeta extends ImportMeta {
@@ -47,7 +49,7 @@ const UserContextProvider: React.FC<{
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [token, setToken] = useState<string | undefined>(undefined);
-  const [, setCookie, removeCookie] = useCookies(['70k3n']);
+  const [cookies, setCookie, removeCookie] = useCookies(['70k3n']);
 
   const login = async ({
     username,
@@ -89,6 +91,36 @@ const UserContextProvider: React.FC<{
 
   const register = () => {};
 
+  const verifyToken = async (token: string) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${apiUrl}/verifyToken`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        removeCookie('70k3n');
+        setIsLogged(false);
+        return false;
+      }
+
+      const data = await response.json();
+      setToken(data.token);
+      setCookie('70k3n', data.token);
+      setIsLogged(true);
+    } catch (e) {
+      console.error(e);
+      setIsLogged(false);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+    return true;
+  };
+
   const value = {
     isLoading,
     isLogged,
@@ -98,6 +130,7 @@ const UserContextProvider: React.FC<{
     login,
     logout,
     register,
+    verifyToken,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
