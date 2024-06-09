@@ -6,6 +6,7 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+import { UserContextProvider } from '@rpg-manager/contexts';
 import Index from './pages/Index';
 
 const router = createBrowserRouter(
@@ -18,6 +19,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <UserContextProvider apiUrl={import.meta.env.VITE_PUBLIC_API}>
+      <RouterProvider router={router} />
+    </UserContextProvider>
   </React.StrictMode>
 );

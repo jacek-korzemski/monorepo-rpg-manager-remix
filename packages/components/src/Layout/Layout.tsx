@@ -5,14 +5,11 @@ import './style.css';
 import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import LoginForm from '../LoginForm/LoginForm';
+import { useUser } from '@rpg-manager/hooks';
 
-const Layout = ({
-  children,
-  isLogged = false,
-}: {
-  children: ReactNode;
-  isLogged: boolean | undefined;
-}) => {
+const Layout = ({ children }: { children: ReactNode }) => {
+  const { isLogged } = useUser();
+
   if (!isLogged) {
     return <LoginForm />;
   }

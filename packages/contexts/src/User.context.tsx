@@ -30,9 +30,10 @@ interface CustomImportMeta extends ImportMeta {
 
 const meta: CustomImportMeta = import.meta;
 
-const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const UserContextProvider: React.FC<{
+  children: React.ReactNode;
+  apiUrl: string;
+}> = ({ children, apiUrl }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [token, setToken] = useState<string | undefined>(undefined);
@@ -49,7 +50,7 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     formData.append('password', password);
 
     try {
-      const response = await fetch(`${meta?.env?.VITE_PUBLIC_API}/login`, {
+      const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         body: formData,
       });
@@ -69,7 +70,9 @@ const UserContextProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const logout = () => {};
+  const logout = () => {
+    console.log('hello logout');
+  };
 
   const register = () => {};
 
