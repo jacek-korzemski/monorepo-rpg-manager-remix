@@ -118,16 +118,6 @@ select {
   border-radius: 4px;
   margin: 15px auto;
 }
-.menu li {
-  margin-left: 0;
-}
-.menu li a { 
-  display: block;
-  height: 100%;
-  line-height: 88px;
-  color: #fff;
-  padding: 0 24px;
-}
 
 @keyframes loadingAnimation {
   0% {

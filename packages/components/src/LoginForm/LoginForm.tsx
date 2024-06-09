@@ -1,20 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useUser } from '@rpg-manager/hooks';
 import { Box, Button } from '..';
-import { useCookies } from 'react-cookie';
 
 const LoginComponent = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { login, isLoading, setToken, setIsLogged } = useUser();
-  const [cookies] = useCookies(['70k3n']);
-
-  useEffect(() => {
-    if (cookies['70k3n']) {
-      setToken(cookies['70k3n']);
-      setIsLogged(true);
-    }
-  }, []);
+  const { login, isLoading } = useUser();
 
   return (
     <Box fullWidth>

@@ -1,7 +1,11 @@
-import { Layout } from '@rpg-manager/components';
+import { CardsList, Layout } from '@rpg-manager/components';
 
 const Index = () => {
-  return <Layout isLogged={false}>Strona główna</Layout>;
+  return (
+    <Layout>
+      <CardsList apiUrl={import.meta.env.VITE_PUBLIC_API} />
+    </Layout>
+  );
 };
 
 export default Index;

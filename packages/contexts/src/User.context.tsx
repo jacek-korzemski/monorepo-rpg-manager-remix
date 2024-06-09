@@ -47,7 +47,7 @@ const UserContextProvider: React.FC<{
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [token, setToken] = useState<string | undefined>(undefined);
-  const [, setCookie] = useCookies(['70k3n']);
+  const [, setCookie, removeCookie] = useCookies(['70k3n']);
 
   const login = async ({
     username,
@@ -83,7 +83,8 @@ const UserContextProvider: React.FC<{
   };
 
   const logout = () => {
-    console.log('hello logout');
+    setIsLogged(false);
+    removeCookie('70k3n');
   };
 
   const register = () => {};
