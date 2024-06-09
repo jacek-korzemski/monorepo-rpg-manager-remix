@@ -2,16 +2,24 @@ import './reset.css';
 import './fonts.css';
 import './main.css';
 import './style.css';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LoginForm from '../LoginForm/LoginForm';
 import { useUser } from '@rpg-manager/hooks';
+import Logo from '../Logo/Logo';
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const { isLogged } = useUser();
 
   if (!isLogged) {
-    return <LoginForm />;
+    return (
+      <>
+        <Logo width="256px" margin="-64px auto 0 auto" />
+        <div className="container">
+          <LoginForm />
+        </div>
+      </>
+    );
   }
   return (
     <>

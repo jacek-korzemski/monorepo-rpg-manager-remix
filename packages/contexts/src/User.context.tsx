@@ -1,9 +1,17 @@
-import React, { createContext, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useState,
+} from 'react';
+import { useCookies } from 'react-cookie';
 
 const UserContext = createContext<{
   isLoading: boolean;
   isLogged: boolean;
+  setIsLogged: Dispatch<SetStateAction<boolean>>;
   token: string | undefined;
+  setToken: Dispatch<SetStateAction<string | undefined>>;
   login: ({
     username,
     password,
@@ -16,7 +24,9 @@ const UserContext = createContext<{
 }>({
   isLoading: false,
   isLogged: false,
+  setIsLogged: () => {},
   token: '',
+  setToken: () => {},
   login: () => Promise.resolve(),
   logout: () => {},
   register: () => {},
@@ -37,6 +47,7 @@ const UserContextProvider: React.FC<{
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [token, setToken] = useState<string | undefined>(undefined);
+  const [, setCookie] = useCookies(['70k3n']);
 
   const login = async ({
     username,
@@ -61,6 +72,7 @@ const UserContextProvider: React.FC<{
 
       const data = await response.json();
       setToken(data.token);
+      setCookie('70k3n', data.token);
       setIsLogged(true);
     } catch (e) {
       console.error(e);
@@ -76,7 +88,16 @@ const UserContextProvider: React.FC<{
 
   const register = () => {};
 
-  const value = { isLoading, isLogged, token, login, logout, register };
+  const value = {
+    isLoading,
+    isLogged,
+    setIsLogged,
+    token,
+    setToken,
+    login,
+    logout,
+    register,
+  };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
