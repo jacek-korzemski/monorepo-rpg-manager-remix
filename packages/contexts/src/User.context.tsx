@@ -2,6 +2,7 @@ import React, {
   Dispatch,
   SetStateAction,
   createContext,
+  useEffect,
   useState,
 } from 'react';
 import { useCookies } from 'react-cookie';
@@ -9,6 +10,7 @@ import { useCookies } from 'react-cookie';
 const UserContext = createContext<{
   isLoading: boolean;
   isLogged: boolean;
+  isReady: boolean;
   setIsLogged: Dispatch<SetStateAction<boolean>>;
   token: string | undefined;
   setToken: Dispatch<SetStateAction<string | undefined>>;
@@ -25,6 +27,7 @@ const UserContext = createContext<{
 }>({
   isLoading: false,
   isLogged: false,
+  isReady: false,
   setIsLogged: () => {},
   token: '',
   setToken: () => {},
@@ -46,10 +49,22 @@ const UserContextProvider: React.FC<{
   children: React.ReactNode;
   apiUrl: string;
 }> = ({ children, apiUrl }) => {
+  const [isReady, setIsReady] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [token, setToken] = useState<string | undefined>(undefined);
   const [cookies, setCookie, removeCookie] = useCookies(['70k3n']);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      if (cookies['70k3n']) {
+        await verifyToken(cookies['70k3n']);
+      }
+      setIsReady(true);
+    };
+
+    checkToken();
+  }, []);
 
   const login = async ({
     username,
@@ -124,6 +139,7 @@ const UserContextProvider: React.FC<{
   const value = {
     isLoading,
     isLogged,
+    isReady,
     setIsLogged,
     token,
     setToken,

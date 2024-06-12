@@ -7,7 +7,6 @@ import LoginForm from '../LoginForm/LoginForm';
 import Logo from '../Logo/Logo';
 import './css/reset.css';
 import './css/fonts.css';
-import './css/style.css';
 import './css/main.css';
 
 const TopBar = styled.div`
@@ -33,22 +32,9 @@ const Menu = styled.ul`
 `;
 
 const Layout = ({ children }: { children: ReactNode }) => {
-  const { isLogged, verifyToken, logout } = useUser();
-  const [isMount, setIsMount] = useState(false);
-  const [cookies] = useCookies(['70k3n']);
+  const { isLogged, logout, isReady } = useUser();
 
-  useEffect(() => {
-    const checkToken = async () => {
-      if (cookies['70k3n']) {
-        await verifyToken(cookies['70k3n']);
-      }
-      setIsMount(true);
-    };
-
-    checkToken();
-  }, []);
-
-  if (!isMount) {
+  if (!isReady) {
     return null;
   }
 
@@ -74,7 +60,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 <Link to="/">Moje karty</Link>
               </li>
               <li>
-                <Link to="/login">Dodaj kartę</Link>
+                <Link to="/addCard">Dodaj kartę</Link>
               </li>
               <li>
                 <Link to="/#" onClick={logout}>

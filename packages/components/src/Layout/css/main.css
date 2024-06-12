@@ -83,7 +83,6 @@ textarea {
 }
 select {
   width: 100%;
-  max-width: 300px;
   height: 48px;
   line-height: 27px;
   padding: 10px 58px 11px 11px;
@@ -135,4 +134,126 @@ input[type="checkbox"] {
   accent-color: rgb(39,96,134);
   display: block;
   border: 1px solid black;
+}
+
+/* grid and forms */
+
+.grid {
+  min-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 15px;
+}
+.grid.grid-1 {
+  grid-template-columns: 1fr;
+}
+.grid.grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+.grid.grid-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.grid.grid-5 {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.grid.grid-6 {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.grid input[type=text],
+.grid input[type=number] {
+  width: 100%;
+  max-width: none;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+}
+.grid-item input[type=number] {
+  padding-right: 0;
+}
+
+.btn.st {
+  margin-top: 24px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+}
+
+.star-center,
+.heart-center,
+.shield-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-bottom: 32px;
+}
+.star-center img,
+.heart-center img,
+.shield-center img {
+  position: absolute;
+  top: 16px;
+  max-width: 112px;
+  max-height: 112px;
+}
+.star-center input[type=number],
+.heart-center input[type=number],
+.shield-center input[type=number] {
+  position: relative;
+  margin-top: 16px;
+  max-width: 54px;
+  max-height: 54px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.shield-center img {
+  top: 24px;
+  max-height: 90px;
+  max-width: 90px;
+}
+
+/* additional */
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 88px;
+}
+.filter {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -2;
+  background-color: rgba(0, 14, 50, 0.1);
+  backdrop-filter: blur(13px);
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  font-style: normal;
+  font-weight: 600;
+}
+.body {
+  max-width: 960px;
+  margin: 16px auto;
 }
