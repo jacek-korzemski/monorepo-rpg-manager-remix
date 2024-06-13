@@ -55,10 +55,34 @@ const useCards = (apiUrl: string) => {
     }
   }
 
+  const deleteCard = async (id: string | number) => {
+    try {
+      const response = await fetch(`${apiUrl}/deleteCard`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${cookies['70k3n']}`,
+        },
+        body: JSON.stringify({ id }),
+      });
+  
+      if (response.ok) {
+        return true;
+      } else {
+        console.error('Failed to delete the card.');
+        return false;
+      }
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  };
+
   return {
     postCard,
     editCard,
-  }
+    deleteCard,
+  };
 }
 
 export default useCards;
