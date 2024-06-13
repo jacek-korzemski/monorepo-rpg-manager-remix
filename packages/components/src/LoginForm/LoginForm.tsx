@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import { useUser } from '@rpg-manager/hooks';
-import { Box, Button } from '..';
+import { Box, Button, RegisterForm } from '..';
 
 const LoginComponent = () => {
+  const [registerView, setIsRegisterView] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const { login, isLoading } = useUser();
+
+  if (registerView) {
+    return <RegisterForm />;
+  }
 
   return (
     <Box fullWidth>
@@ -34,7 +39,18 @@ const LoginComponent = () => {
           Login
         </Button>
         <br />
-        <p>Nie masz jeszcze konta? Zarejestruj się!</p>
+        <p>
+          Nie masz jeszcze konta?{' '}
+          <a
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsRegisterView(true);
+            }}
+          >
+            Zarejestruj się!
+          </a>
+        </p>
       </form>
     </Box>
   );

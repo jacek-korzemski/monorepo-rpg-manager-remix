@@ -24,6 +24,9 @@ const UserContext = createContext<{
   logout: () => void;
   register: () => void;
   verifyToken: (token: string) => void;
+  error: string | undefined;
+  setError: Dispatch<SetStateAction<string | undefined>>;
+  registerSuccess?: boolean;
 }>({
   isLoading: false,
   isLogged: false,
@@ -35,6 +38,9 @@ const UserContext = createContext<{
   logout: () => {},
   register: () => {},
   verifyToken: () => {},
+  error: undefined,
+  setError: () => {},
+  registerSuccess: false,
 });
 
 interface CustomImportMeta extends ImportMeta {
@@ -49,9 +55,11 @@ const UserContextProvider: React.FC<{
   children: React.ReactNode;
   apiUrl: string;
 }> = ({ children, apiUrl }) => {
+  const [error, setError] = useState<string | undefined>(undefined);
   const [isReady, setIsReady] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLogged, setIsLogged] = useState<boolean>(false);
+  const [registerSuccess, setRegisterSuccess] = useState<boolean>(false);
   const [token, setToken] = useState<string | undefined>(undefined);
   const [cookies, setCookie, removeCookie] = useCookies(['70k3n']);
 
@@ -104,7 +112,35 @@ const UserContextProvider: React.FC<{
     removeCookie('70k3n');
   };
 
-  const register = () => {};
+  const register = async () => {
+    setIsLoading(true);
+    const form = document.getElementById('register') as HTMLFormElement;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(`${apiUrl}/register`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        await response.json();
+        location.href = '/registerSuccess';
+      } else {
+        setError(
+          `Podczas rejestracji wystąpił błąd. Możliwe, że istnieje już użytkownik
+          o tej samej nazwie użytkownika, lub hasło nie było takie samo z polem "potwierdź hasło".
+          Jeśli jesteś pewien, że po Twojej stronie wszystko jest w porządku, spróbuj ponownie później. Może samo zacznie działać.`
+        );
+      }
+    } catch (e) {
+      setError('Podczas rejestracji wystąpił błąd. Spróbuj ponownie później.');
+      console.error(e);
+    } finally {
+      setIsLoading(false);
+      setRegisterSuccess(true);
+    }
+  };
 
   const verifyToken = async (token: string) => {
     setIsLoading(true);
@@ -147,6 +183,9 @@ const UserContextProvider: React.FC<{
     logout,
     register,
     verifyToken,
+    error,
+    setError,
+    registerSuccess,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
