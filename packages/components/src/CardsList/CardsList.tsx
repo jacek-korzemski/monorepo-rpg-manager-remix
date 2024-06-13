@@ -1,4 +1,5 @@
 import { useUser } from '@rpg-manager/hooks';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Box, Spinner } from '..';
@@ -32,12 +33,6 @@ const TableHeader = styled(TableRow)`
   background-color: darkblue;
   font-weight: bold;
   border-top: 1px solid #ccc;
-`;
-
-const Link = styled.a`
-  &:hover {
-    border-bottom: transparent;
-  }
 `;
 
 const CardsComponent = ({ apiUrl }: { apiUrl: string }) => {
@@ -92,7 +87,7 @@ const CardsComponent = ({ apiUrl }: { apiUrl: string }) => {
               <TableCell>{card.name}</TableCell>
               <TableCell>{card.description}</TableCell>
               <TableCell>
-                <Link href={`/editCard/#${card.id}`}>📝</Link>
+                <Link to={`/editCard/${card.id}`}>📝</Link>
               </TableCell>
             </TableRow>
           ))}
