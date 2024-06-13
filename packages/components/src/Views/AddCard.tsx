@@ -4,7 +4,7 @@ import Shadowdark from './creators/Shadowdark';
 import { Box } from '..';
 import BasicFantasy from './creators/BasicFantasy';
 import Note from './creators/Note';
-import { useCookies } from 'react-cookie';
+import { useCards } from '@rpg-manager/hooks';
 
 interface Props {
   data?: {
@@ -27,58 +27,33 @@ const AddCard: React.FC<Props> = ({
   apiUrl,
 }) => {
   const [system, setSystem] = useState<string>('none');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | undefined>(undefined);
-  const [cookies] = useCookies(['70k3n']);
+  const [isLoading] = useState<boolean>(false);
+  const [error] = useState<string | undefined>(undefined);
+  const { postCard, editCard } = useCards(apiUrl);
 
   const btnClass = isLoading ? 'btn loading' : 'btn';
 
-  const postCard = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(undefined);
-    setIsLoading(true);
-
-    const form = document.getElementById('add-card-form') as HTMLFormElement;
-    const formData = new FormData(form);
-
-    if (lock && data?.user_id) {
-      formData.append('user_id', data.user_id);
-      formData.append('id', data.id as string);
-      formData.append('system', system);
-    }
-
-    const apiMethod = lock ? 'putCard' : 'addCard';
-
-    console.log(formData);
-
-    try {
-      const response = await fetch(`${apiUrl}/${apiMethod}`, {
-        method: 'post',
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${cookies['70k3n']}`,
-        },
-      });
-
-      if (response.ok) {
-        setIsLoading(false);
-        window.location.href = lock ? '/editCardSuccess' : '/addCardSuccess';
-      }
-    } catch (e) {
-      setError('Wystąpił błąd 😟 Spróbuj ponownie później.');
-      setIsLoading(false);
-      console.error(e);
-    }
-  };
-
   useEffect(() => {
+    console.log(lock);
     if (initialSystem) {
       setSystem(initialSystem);
     }
   }, [initialSystem]);
 
+  const handleSubmit = (e: React.FormEvent) => {
+    if (lock) {
+      editCard(e, data, system);
+      return;
+    }
+    postCard(e);
+    return;
+  };
+
   return (
-    <form onSubmit={(e) => postCard(e)} id="add-card-form">
+    <form
+      onSubmit={(e) => handleSubmit(e)}
+      id={lock ? 'edit-card-form' : 'add-card-form'}
+    >
       <Box fullWidth>
         <div className="grid grid-2">
           <div className="grid-item">
